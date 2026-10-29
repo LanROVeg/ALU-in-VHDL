@@ -11,7 +11,7 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="205.252 ns"></ZoomEndTime>
+      <ZoomEndTime time="235.001 ns"></ZoomEndTime>
       <Cursor1Time time="0.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
@@ -22,12 +22,10 @@
    <wvobject fp_name="/ALU_tb/A" type="array">
       <obj_property name="ElementShortName">A[7:0]</obj_property>
       <obj_property name="ObjectShortName">A[7:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/ALU_tb/B" type="array">
       <obj_property name="ElementShortName">B[7:0]</obj_property>
       <obj_property name="ObjectShortName">B[7:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/ALU_tb/Cin" type="logic">
       <obj_property name="ElementShortName">Cin</obj_property>
@@ -36,7 +34,6 @@
    <wvobject fp_name="/ALU_tb/Rslt" type="array">
       <obj_property name="ElementShortName">Rslt[7:0]</obj_property>
       <obj_property name="ObjectShortName">Rslt[7:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/ALU_tb/Cout" type="logic">
       <obj_property name="ElementShortName">Cout</obj_property>
@@ -45,6 +42,5 @@
    <wvobject fp_name="/ALU_tb/op" type="array">
       <obj_property name="ElementShortName">op[2:0]</obj_property>
       <obj_property name="ObjectShortName">op[2:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
 </wave_config>
