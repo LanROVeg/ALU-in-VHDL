@@ -13,3 +13,4 @@
 *.hw/
 *.sim/
 *.cache/
+.vivado-work/

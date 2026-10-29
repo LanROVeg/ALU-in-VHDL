@@ -1,52 +1,30 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-
-entity Adder_8b_tb is
-end Adder_8b_tb;
-
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use std.env.all;
+entity Adder_8b_tb is end;
 architecture Test of Adder_8b_tb is
-    signal A, B : std_logic_vector(7 downto 0) := "00000000";
-    signal Cin : std_logic := '0';
-    signal Sum : std_logic_vector(7 downto 0);
-    signal Cout : std_logic;
-    
-component Adder_8b is
-    Port ( A, B : in std_logic_vector(7 downto 0);
-           Cin : in std_logic;
-           Sum : out std_logic_vector(7 downto 0);
-           Cout : out std_logic );
-end component;
-    
+    signal A, B, Sum : std_logic_vector(7 downto 0);
+    signal Cin, Cout : std_logic;
 begin
-    DUT: Adder_8b port map (A, B, Cin, Sum, Cout);
-
-process
-begin
-    -- Test 1
-    A <= x"00";
-    B <= x"00";
-    Cin <= '1';
-    wait for 10 ns;
-
-    -- Test 2
-    A <= x"7F";
-    B <= x"81";
-    Cin <= '0';
-    wait for 10 ns;
-
-    -- Test 3
-    A <= x"9A";
-    B <= x"65";
-    Cin <= '1';
-    wait for 10 ns;
-
-    -- Test 4
-    A <= x"6B";
-    B <= x"8F";
-    Cin <= '1';
-    wait for 10 ns;
-
-    wait;
-end process;
-    
-end Test;
+    DUT: entity work.Adder_8b port map(A, B, Cin, Sum, Cout);
+    process
+        variable expected : unsigned(8 downto 0);
+    begin
+        for x in 0 to 255 loop
+            for y in 0 to 255 loop
+                for c in 0 to 1 loop
+                    A <= std_logic_vector(to_unsigned(x,8));
+                    B <= std_logic_vector(to_unsigned(y,8));
+                    if c=0 then Cin <= '0'; else Cin <= '1'; end if;
+                    expected := to_unsigned(x+y+c,9);
+                    wait for 1 ns;
+                    assert Sum=std_logic_vector(expected(7 downto 0)) report "Adder sum mismatch" severity failure;
+                    assert Cout=expected(8) report "Adder carry mismatch" severity failure;
+                end loop;
+            end loop;
+        end loop;
+        report "PASS: 8-bit adder 131072 exhaustive binary cases";
+        finish;
+    end process;
+end;
