@@ -23,6 +23,7 @@ begin
                         op <= std_logic_vector(to_unsigned(s,3));
                         if c=0 then Cin <= '0'; carry := '0';
                         else Cin <= '1'; carry := '1'; end if;
+                        -- This reference uses integers rather than the DUT's adder wiring.
                         case s is
                             when 0 | 1 =>
                                 full := x+y;
@@ -33,7 +34,7 @@ begin
                             when 3 => expected := y;
                             when others => expected := x;
                         end case;
-                        wait for 1 ns;
+                        wait for 1 ns; -- Let the combinational signal updates settle.
                         assert Rslt=std_logic_vector(to_unsigned(expected,8))
                             report "ALU result mismatch op=" & integer'image(s) &
                                    " A=" & integer'image(x) & " B=" & integer'image(y) & " Cin=" & integer'image(c)

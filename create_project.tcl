@@ -1,6 +1,7 @@
 # Recreate from portable sources in Vivado 2024.2 or later.
 set repo [file dirname [file normalize [info script]]]
-set work [file join $repo .vivado-work]
+# Compiled simulation libraries cannot be reused safely across Vivado releases.
+set work [file join $repo .vivado-work [version -short]]
 if {[file exists [file join $work alu_demo.xpr]]} {
     open_project [file join $work alu_demo.xpr]
 } else {
@@ -9,6 +10,7 @@ if {[file exists [file join $work alu_demo.xpr]]} {
     add_files -fileset sim_1 [list [file join $repo {Project 1.srcs/sim_1/new/Adder_8b_tb.vhd}] [file join $repo {Project 1.srcs/sim_1/new/ALU_tb.vhd}]]
 }
 set_property file_type {VHDL 2008} [get_files *.vhd]
+set_property target_language VHDL [current_project]
 set_property top ALU [get_filesets sources_1]
 set_property top ALU_tb [get_filesets sim_1]
 set_property xsim.simulate.runtime all [get_filesets sim_1]

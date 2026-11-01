@@ -17,6 +17,7 @@ begin
                     A <= std_logic_vector(to_unsigned(x,8));
                     B <= std_logic_vector(to_unsigned(y,8));
                     if c=0 then Cin <= '0'; else Cin <= '1'; end if;
+                    -- Use a 9-bit arithmetic result to check both sum and carry.
                     expected := to_unsigned(x+y+c,9);
                     wait for 1 ns;
                     assert Sum=std_logic_vector(expected(7 downto 0)) report "Adder sum mismatch" severity failure;

@@ -14,6 +14,7 @@ begin
 
     c(0) <= Cin;
     
+    -- Each bit uses the carry from the previous full-adder stage.
     gen_adder: for i in 0 to 7 generate
     
        Sum(i) <= A(i) xor B(i) xor c(i);
@@ -22,6 +23,6 @@ begin
 
     end generate;
     
-    Cout <= c(8);
+    Cout <= c(8); -- Keep the ninth bit instead of losing unsigned carry-out.
 
 end Behavioral;

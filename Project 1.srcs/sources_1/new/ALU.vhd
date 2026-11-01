@@ -25,13 +25,15 @@ begin
 
     UUT: Adder_8b port map (A => A, B => B, Cin => adder_cin, Sum => add_result, Cout => add_carry );
 
+    -- Plain ADD ignores Cin; only opcode 001 adds the incoming carry.
     adder_cin <= Cin when op = "001" else '0';
 
     Rslt <= add_result when op = "000" or op = "001" else
             A XOR B when op = "010" else
             B when op = "011" else
-            A;
+            A; -- Pass-through for the remaining opcodes; there is no stored state.
 
+    -- The lab passes Cin through Cout for the non-add operations.
     Cout <= add_carry when op = "000" or op = "001" else Cin;
     
 end Behavioral;
